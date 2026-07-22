@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 def main():
     print("Packing levels...")
     
-    xml_path = os.path.join(os.path.dirname(__file__), '..', 'python-reference', 'data', 'levels_hero.xml')
+    xml_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'levels_hero.xml')
     tree = ET.parse(xml_path)
     root = tree.getroot()
     

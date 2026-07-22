@@ -1,7 +1,7 @@
 import glob
 import os
 
-files = [os.path.splitext(os.path.basename(f))[0] for f in sorted(glob.glob('python-reference/data/maps/legacy/*.dat'))]
+files = [os.path.splitext(os.path.basename(f))[0] for f in sorted(glob.glob('data/maps/legacy/*.dat'))]
 for i, f in enumerate(files, 1):
     # Map alefgard -> overworld for backwards compatibility
     name = 'overworld' if f == 'alefgard' else f

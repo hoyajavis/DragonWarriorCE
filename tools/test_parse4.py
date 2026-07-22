@@ -9,7 +9,7 @@ import pack_map
 def run_test():
     internal_name = 'tantegel_lvl0'
     appvar_name, dat_file, xml_file = pack_map.MAP_REGISTRY[internal_name]
-    xml_path = f'python-reference/data/maps/{xml_file}'
+    xml_path = f'data/maps/{xml_file}'
     
     maps = []
     if os.path.exists(xml_path):

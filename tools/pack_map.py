@@ -33,7 +33,7 @@ GAME_XML_MAPS = {}  # Populated by _load_game_xml_maps()
 
 def _load_game_xml_maps():
     """Parse game.xml and cache all <Map> elements by name."""
-    game_xml_path = 'python-reference/data/game.xml'
+    game_xml_path = 'data/game.xml'
     if not os.path.exists(game_xml_path):
         return
     try:
@@ -158,7 +158,7 @@ def get_spawn_coords(target_internal_name, source_internal_name):
         return 0, 0
     
     _, _, target_xml = MAP_REGISTRY[target_internal_name]
-    target_xml_path = f'python-reference/data/maps/{target_xml}'
+    target_xml_path = f'data/maps/{target_xml}'
     
     # Build list of candidate Map elements to search
     maps = []
@@ -193,8 +193,8 @@ def pack_map(internal_name):
         return
         
     appvar_name, dat_file, xml_file = MAP_REGISTRY[internal_name]
-    dat_path = f'python-reference/data/maps/{dat_file}'
-    xml_path = f'python-reference/data/maps/{xml_file}'
+    dat_path = f'data/maps/{dat_file}'
+    xml_path = f'data/maps/{xml_file}'
     
     # 1. Parse the visual matrix
     try:
@@ -443,7 +443,7 @@ if __name__ == '__main__':
         pack_map(map_name)
         
     print("Parsing game.xml for global DialogScripts...")
-    game_tree = ET.parse('python-reference/data/game.xml')
+    game_tree = ET.parse('data/game.xml')
     for script in game_tree.findall('.//DialogScript'):
         label = script.attrib.get('label')
         if label:

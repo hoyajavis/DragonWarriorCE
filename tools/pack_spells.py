@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import os
 
 def main():
-    tree = ET.parse('python-reference/data/game.xml')
+    tree = ET.parse('data/game.xml')
     root = tree.getroot()
     
     spells_node = root.find('Spells')

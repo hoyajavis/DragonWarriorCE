@@ -8,7 +8,7 @@ for map_name in pack_map.MAP_REGISTRY.keys():
     pack_map.pack_map(map_name)
 
 import xml.etree.ElementTree as ET
-game_tree = ET.parse('python-reference/data/game.xml')
+game_tree = ET.parse('data/game.xml')
 for script in game_tree.findall('.//DialogScript'):
     label = script.attrib.get('label')
     if label:

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Map name="hauksness" tiles="legacy/hauksness.dat" music="dungeon_lvl_1" monsterSet="13" encounterBackground="desert_city_ruins" lightDiameter="unlimited" isOutside="yes" xmlns:xi="http://www.w3.org/2001/XInclude">
+   <LeavingTransition                                x="1"   y="11"  dir="EAST"  toMap="overworld"/>
+
+   <Monster name="Axe Knight" x="19" y="13">
+      <RunAwayDialog><DialogAction type="GOTO_COORDINATES" x="18" y="13"/></RunAwayDialog></Monster>
+
+   <MapDecoration type="None" x="19" y="13">
+      <DialogAssert type="LACKS_ITEM" name="Erdrick's Armor"><DialogGoTo label="found_nothing"/></DialogAssert>
+      <DialogAction type="GAIN_ITEM" name="Erdrick's Armor"/>
+      <Dialog>[NAME] searched the ground all about.</Dialog>
+      <Dialog>Fortune smiles upon thee!  Thou hast found the Erdrick's Armor.</Dialog></MapDecoration>
+</Map>

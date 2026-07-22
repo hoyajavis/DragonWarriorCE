@@ -26,7 +26,7 @@ def resolve_includes(elem, base_dir):
 
 def pack_map(internal_name):
     appvar_name, dat_file, xml_file = MAP_REGISTRY[internal_name]
-    xml_path = f'python-reference/data/maps/{xml_file}'
+    xml_path = f'data/maps/{xml_file}'
     
     interactables = []
     

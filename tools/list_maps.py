@@ -2,7 +2,7 @@ import glob
 import os
 import xml.etree.ElementTree as ET
 
-for f in glob.glob('python-reference/data/maps/*.xml'):
+for f in glob.glob('data/maps/*.xml'):
     try:
         tree = ET.parse(f)
         root = tree.getroot()

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Map name="tantegel_lvl1" tiles="legacy/tantegel_lvl1.dat" music="castle" lightDiameter="unlimited" isOutside="yes" xmlns:xi="http://www.w3.org/2001/XInclude">
+   <LeavingTransition                                x="11"  y="30"  dir="NORTH" toMap="overworld"/>
+   <PointTransition decoration="upstairs"            x="8"   y="8"   dir="EAST"  toMap="tantegel_lvl2"/>
+   <PointTransition decoration="downstairs"          x="30"  y="30"  dir="SOUTH" toMap="tantegel_lvl0"/>
+   <MapDecoration type="door"  x="5"  y="14"/>
+   <MapDecoration type="door"  x="19" y="7"/>
+
+   <MapLocation x="2"  y="14" name="chest1"/>
+   <MapLocation x="2"  y="16" name="chest2"/>
+   <MapLocation x="3"  y="15" name="chest3"/>
+   <MapLocation x="4"  y="16" name="chest4"/>
+   <MapLocation x="12" y="8"  name="king"/>
+   <MapLocation x="11" y="8"  name="princess"/>
+   <MapLocation x="10" y="10" name="east facing trumpeter 1"/>
+   <MapLocation x="10" y="12" name="east facing trumpeter 2"/>
+   <MapLocation x="10" y="14" name="east facing trumpeter 3"/>
+   <MapLocation x="13" y="10" name="west facing trumpeter 1"/>
+   <MapLocation x="13" y="12" name="west facing trumpeter 2"/>
+   <MapLocation x="13" y="14" name="west facing trumpeter 3"/>
+   <MapLocation x="9"  y="7"  name="guard 1"/>
+   <MapLocation x="9"  y="9"  name="guard 2"/>
+   <MapLocation x="12" y="12" name="boy 1"/>
+   <MapLocation x="9"  y="14" name="girl 1"/>
+   <MapLocation x="3"  y="22" name="merchant 1"/>
+   <MapLocation x="7"  y="24" name="merchant 2"/>
+   <MapLocation x="3"  y="13" name="guard 3"/>
+   <MapLocation x="20" y="14" name="sage 1"/>
+   <MapLocation x="27" y="16" name="guard 4"/>
+   <MapLocation x="3"  y="9"  name="boy 2"/>
+   <MapLocation x="28" y="6"  name="girl 2"/>
+   <MapLocation x="10" y="28" name="guard 5"/>
+   <MapLocation x="13" y="28" name="guard 6"/>
+   <MapLocation x="16" y="21" name="guard 7"/>
+   <MapLocation x="21" y="27" name="sage 2"/>
+   <MapLocation x="25" y="22" name="warrior"/>
+   <MapLocation x="25" y="2"  name="key vendor"/>
+
+   <xi:include href="map_tantegel_lvl1_common.xml" parse="xml"/>
+</Map>

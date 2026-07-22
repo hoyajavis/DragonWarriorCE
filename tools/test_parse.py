@@ -18,7 +18,7 @@ def resolve_includes(elem, base_dir):
                         for i, new_child in enumerate(inc_root):
                             parent.insert(idx + i, new_child)
 
-xml_path = 'python-reference/data/maps/map_tantegel_lvl1_legacy.xml'
+xml_path = 'data/maps/map_tantegel_lvl1_legacy.xml'
 tree = ET.parse(xml_path)
 root = tree.getroot()
 resolve_includes(root, os.path.dirname(xml_path))

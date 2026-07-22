@@ -11,7 +11,7 @@ def parse_fraction(val_str):
     return int(float(val_str) * 100)
 
 def main():
-    game_xml_path = "python-reference/data/game.xml"
+    game_xml_path = "data/game.xml"
     if not os.path.exists(game_xml_path):
         print("game.xml not found!")
         return
