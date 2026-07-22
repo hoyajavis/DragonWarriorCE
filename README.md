@@ -1,6 +1,6 @@
-# Dragon Warrior Randomizer (TI-84 Plus CE Demake)
+# Dragon Warrior CE (TI-84 Plus CE Demake)
 
-A native C port and demake of the `pydw-randomizer` project, designed specifically to run on the **TI-84 Plus CE** graphing calculator.
+A native C port and demake of the classic Dragon Warrior experience, designed specifically to run on the **TI-84 Plus CE** graphing calculator.
 
 This project aims to recreate the classic Dragon Warrior experience on the calculator using the CE C Toolchain. It features a robust custom engine capable of parsing XML map data into optimized AppVars, a full bytecode interpreter for complex dialogue and event scripting, and classic turn-based combat.
 
@@ -63,7 +63,7 @@ To play the game on a real TI-84 Plus CE calculator:
 
 ## Credits & Acknowledgements
 
-*   **[hoyajavis/pydw-randomizer](https://github.com/hoyajavis/pydw-randomizer)**: The original Python project that this demake is based upon. The python-reference codebase provided the core randomizer concepts, math, and the original ripped sprite assets used in this game.
+*   **[hoyajavis/pydw-randomizer](https://github.com/hoyajavis/pydw-randomizer)**: The original Python project that this demake was initially based upon. The codebase provided the core math, map generation concepts, and original ripped sprite assets used in this game.
 *   **[justinbeetle/pyDragonWarrior](https://github.com/justinbeetle/pyDragonWarrior)**: Justin Beetle and contributors for creating the original, highly-faithful recreation of Dragon Warrior in Python/Pygame, which served as the engine framework for `pydw-randomizer`.
 *   **[mcgrew/dwrandomizer](https://github.com/mcgrew/dwrandomizer)**: McGrew and the Dragon Warrior randomizer community for creating the C++ ROM hacking tool and logic graphs that define modern Dragon Warrior randomization.
 *   **[CE C Toolchain Team](https://github.com/CE-Programming/toolchain)**: For building the incredible open-source C compiler, libraries, and graphics tools (`convpng`) that make native development on the TI-84 Plus CE possible. 
