@@ -1,0 +1,11 @@
+with open(r'C:\Users\hoyaj\.gemini\antigravity\brain\6e4ed2fc-95b2-44bf-bbd7-4beaeead3006\walkthrough.md', 'a') as f:
+    f.write('\n\n## Map Tile Expansion\n')
+    f.write('We have successfully expanded the C engine to natively render all mapping tiles required for the 38 unique maps.\n\n')
+    f.write('### What was changed\n')
+    f.write('- **Graphics Pipeline**: Missing tiles (`armor`, `barrier`, `counter`, `darkness`, `inn`, `path`, `roof`) were copied from the Python reference into `src/gfx/` and added to `convimg.yaml` for compilation.\n')
+    f.write('- **Engine Logic**: `src/map.h` and `src/map.c` were updated to parse and draw the new `TILE_` values dynamically. `src/main.c` was updated so players correctly collide with walls/roofs/counters but can walk freely on paths and barriers.\n')
+    f.write('- **Python Packer Tooling**: `tools/pack_map.py` now directly maps the exact string symbols from legacy files (e.g. `R` to `TILE_ROOF`, `i` to `TILE_INN`) directly to our binary mapping bytes. Camden World was excluded, and transparent dots (`.`) gracefully fallback to plain background tiles.\n\n')
+    f.write('### Validation\n')
+    f.write('- The build script completes seamlessly without errors.\n')
+    f.write('- The TI-84 executable grew only slightly to ~51KB to accommodate the new graphics.\n')
+    f.write('- The overworld, castles, towns, and dungeons are all actively supported and rendered natively.\n')

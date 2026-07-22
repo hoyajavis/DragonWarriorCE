@@ -1,0 +1,31 @@
+# Build outputs
+/bin/
+/obj/
+*.8xp
+*.8xv
+*.rom
+
+# CE Toolchain
+/CEdev/
+
+# Generated graphics C code
+/src/gfx/*.c
+/src/gfx/*.h
+/src/gfx/*.lst
+!/src/gfx/convimg.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+
+# Temporary files & IDE
+temp_dl.txt
+.jules/
+.vscode/
+.idea/
+
+# OS specific
+.DS_Store
+Thumbs.db

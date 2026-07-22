@@ -1,0 +1,102 @@
+palettes:
+  - name: global_palette
+    images: automatic
+
+converts:
+  - name: gfx
+    palette: global_palette
+    transparent-color-index: 0
+    images:
+      - armor.png
+      - armored_knight.png
+      - axe_knight.png
+      - barrier.png
+      - blue_dragon.png
+      - boy.png
+      - bridge.png
+      - castle_stone_a.png
+      - castle_stone_tall_a.png
+      - cave.png
+      - chest.png
+      - counter.png
+      - darkness.png
+      - demon_knight.png
+      - desert.png
+      - door.png
+      - dragonlord_first_form.png
+      - dragonlord_second_form.png
+      - drakee.png
+      - drakeema.png
+      - droll.png
+      - drollmagi.png
+      - druin.png
+      - druinlord.png
+      - forest.png
+      - ghost.png
+      - girl.png
+      - goldman.png
+      - golem.png
+      - green_dragon.png
+      - guard.png
+      - hero.png
+      - hero_down.png
+      - hero_left.png
+      - hero_right.png
+      - hero_up.png
+      - hill.png
+      - inn.png
+      - king.png
+      - knight.png
+      - magician.png
+      - magidrakee.png
+      - magiwyvern.png
+      - merchant.png
+      - metal_scorpion.png
+      - metal_slime.png
+      - mountain.png
+      - path.png
+      - plain.png
+      - poltergeist.png
+      - princess.png
+      - red_dragon.png
+      - red_slime.png
+      - rogue_scorpion.png
+      - roof.png
+      - sage.png
+      - scorpion.png
+      - shrine_stone_a.png
+      - shrine_stone_b.png
+      - skeleton.png
+      - slime.png
+      - specter.png
+      - stairs_down.png
+      - stairs_up.png
+      - starwyvern.png
+      - stone.png
+      - stoneman.png
+      - stopper.png
+      - swamp.png
+      - title.png
+      - town_stone_med_a.png
+      - town_stone_med_b.png
+      - town_wood_med_a.png
+      - town_wood_med_b.png
+      - trumpeter.png
+      - warlock.png
+      - warrior.png
+      - water.png
+      - werewolf.png
+      - wizard.png
+      - wolf.png
+      - wolflord.png
+      - wraith.png
+      - wraith_knight.png
+      - wyvern.png
+
+outputs:
+  - type: c
+    include-file: gfx.h
+    palettes:
+      - global_palette
+    converts:
+      - gfx
