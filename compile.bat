@@ -39,6 +39,8 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
+if exist "src\gfx\PYDWGFX.8xv" copy "src\gfx\PYDWGFX.8xv" "bin\PYDWGFX.8xv" >nul
+
 echo.
 echo =========================================
 echo  SUCCESS! 

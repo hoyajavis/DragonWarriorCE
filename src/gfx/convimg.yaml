@@ -94,8 +94,11 @@ converts:
       - wyvern.png
 
 outputs:
-  - type: c
+  - type: appvar
+    name: PYDWGFX
     include-file: gfx.h
+    source-format: c
+    compress: zx7
     palettes:
       - global_palette
     converts:

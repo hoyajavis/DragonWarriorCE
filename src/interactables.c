@@ -1,6 +1,7 @@
 #include "interactables.h"
 #include "game.h"
 #include "action_ids.h"
+#include "randomizer.h"
 #include <fileioc.h>
 #include <string.h>
 #include <stdio.h>
@@ -171,7 +172,7 @@ bool continue_action(void) {
                 {
                     uint8_t item_id;
                     ti_Read(&item_id, 1, 1, file_handle);
-                    giveItem((ItemEnum)item_id);
+                    giveItem(get_item_mapping((ItemEnum)item_id));
                 }
                 break;
                 

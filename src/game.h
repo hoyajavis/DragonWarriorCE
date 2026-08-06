@@ -27,7 +27,9 @@ typedef enum {
     STATE_LEVEL_UP,
     STATE_COMBAT_ITEM,
     STATE_SELECT_SAVE_SLOT,
-    STATE_SELECT_LOAD_SLOT
+    STATE_SELECT_LOAD_SLOT,
+    STATE_SEED_INPUT,
+    STATE_FLAG_SELECT
 } AppStateEnum;
 
 #define TILE_SIZE 16
@@ -107,6 +109,10 @@ typedef struct {
     
     // UI State
     bool showLevelUpDialog;
+
+    // Randomizer State
+    uint32_t seed;
+    uint16_t randoFlags;
 } GameState;
 
 typedef struct {
@@ -116,7 +122,9 @@ typedef struct {
 } SaveSlot;
 
 typedef struct {
+    uint16_t magic; // 0x4457 ("DW")
     SaveSlot slots[3];
+    uint16_t checksum;
 } SaveFile;
 
 extern GameState state;

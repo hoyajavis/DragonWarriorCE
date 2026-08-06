@@ -72,11 +72,11 @@ typedef enum {
 } ObjectType;
 
 extern uint8_t current_map_num_interactables;
-extern uint8_t current_map_interactables_raw[64 * 6];
+extern uint8_t current_map_interactables_raw[32 * 6];
 
 extern uint8_t current_map_global_monster_set;
 extern uint8_t current_map_num_monster_zones;
-extern uint8_t current_map_monster_zones[64 * 5];
+extern uint8_t current_map_monster_zones[16 * 5];
 
 // Map Handling
 void map_InitLUT(void);
@@ -86,5 +86,7 @@ bool map_Load(const char *appvar_name);
 
 // Draws the visible portion of the map based on the absolute camera pixel coordinates
 void map_Draw(uint16_t cameraX, uint16_t cameraY);
+
+bool isPassable(uint16_t px, uint16_t py);
 
 #endif

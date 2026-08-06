@@ -24,9 +24,12 @@ void ui_DrawCombatStats(uint16_t heroHp, uint16_t heroMaxHp, uint16_t heroMp, ui
 void ui_DrawCombatMessage(const char* message);
 void ui_DrawCombatCommandMenu(int selectedIndex);
 
+// Draw the splash title menu
+void ui_DrawSplashMenu(int selectedIndex);
+
 // Draw the inventory menu
 void ui_DrawInventoryMenu(const ItemEnum* inventoryList, uint8_t numItems, int selectedIndex, int scrollOffset, int inventoryTab);
-void ui_DrawInventoryActionMenu(int selectedIndex);
+void ui_DrawInventoryActionMenu(bool canEquip, int selectedIndex);
 void ui_DrawDropConfirm(ItemEnum item);
 
 // Draw the spells menu
@@ -53,5 +56,11 @@ void ui_DrawLevelUpDialog(void);
 
 // Draw save/load menu
 void ui_DrawSaveLoadMenu(int selectedIndex, bool isSaving);
+void ui_DrawSelectSaveSlot(int selectedIndex);
+
+// Draw randomizer UI menus
+void ui_DrawSeedInputMenu(const char *seedBuffer);
+void ui_DrawFlagSelectMenu(uint32_t seed, uint8_t presetIndex, uint16_t currentFlags, int selectedIndex);
+void ui_DrawGeneratingLoader(uint32_t seed, uint16_t flags);
 
 #endif

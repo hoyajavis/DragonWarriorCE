@@ -92,19 +92,18 @@ void ui_DrawInventoryMenu(const ItemEnum* inventoryList, uint8_t numItems, int s
     }
 }
 
-void ui_DrawInventoryActionMenu(int selectedIndex) {
-    ui_DrawMenuWindow(250, 10, 60, 60);
-    static const char * const options[] = {"USE", "EQUIP", "DROP"};
+void ui_DrawInventoryActionMenu(bool canEquip, int selectedIndex) {
+    ui_DrawMenuWindow(240, 30, 70, canEquip ? 50 : 35);
     gfx_SetTextFGColor(0xFF);
     gfx_SetTextBGColor(0x00);
     gfx_SetTextTransparentColor(0x00);
     
-    int y = 20;
-    for (int i = 0; i < 3; i++, y += 15) {
-        if (selectedIndex == i) {
-            ui_DrawSelectionPointer(255, y);
-        }
-        gfx_PrintStringXY(options[i], 265, y);
+    if (selectedIndex == 0) ui_DrawSelectionPointer(245, 40);
+    gfx_PrintStringXY("USE", 255, 40);
+    
+    if (canEquip) {
+        if (selectedIndex == 1) ui_DrawSelectionPointer(245, 55);
+        gfx_PrintStringXY("EQUIP", 255, 55);
     }
 }
 
@@ -433,4 +432,102 @@ void ui_DrawSaveLoadMenu(int selectedIndex, bool isSaving) {
             gfx_PrintString(": Empty");
         }
     }
+}
+
+void ui_DrawSplashMenu(int selectedIndex) {
+    ui_DrawMenuWindow(110, 140, 100, 80);
+    static const char * const options[] = {"NEW GAME", "LOAD GAME", "OPTIONS", "EXIT"};
+    gfx_SetTextFGColor(0xFF);
+    gfx_SetTextBGColor(0x00);
+    gfx_SetTextTransparentColor(0x00);
+    for (int i = 0; i < 4; i++) {
+        if (selectedIndex == i) {
+            ui_DrawSelectionPointer(120, 150 + i * 15);
+        }
+        gfx_PrintStringXY(options[i], 135, 150 + i * 15);
+    }
+}
+
+void ui_DrawSelectSaveSlot(int selectedIndex) {
+    ui_DrawSaveLoadMenu(selectedIndex, false);
+}
+
+void ui_DrawSeedInputMenu(const char *seedBuffer) {
+    ui_DrawMenuWindow(20, 25, 280, 190);
+    gfx_SetTextFGColor(0xFF);
+    gfx_SetTextBGColor(0x00);
+    gfx_SetTextTransparentColor(0x00);
+    
+    gfx_PrintStringXY("RANDOMIZER SEED ENTRY", 70, 40);
+    gfx_PrintStringXY("Enter 32-Bit Seed (Default: Random)", 35, 65);
+    
+    // Seed Box
+    ui_DrawMenuWindow(40, 90, 240, 30);
+    gfx_PrintStringXY(seedBuffer, 55, 100);
+    
+    // Keyboard instructions
+    gfx_PrintStringXY("[ENTER] Accept Seed & Continue", 45, 135);
+    gfx_PrintStringXY("[WINDOW] Re-roll New Random Seed", 40, 155);
+    gfx_PrintStringXY("[CLEAR] Back to Slot Select", 55, 175);
+}
+
+void ui_DrawFlagSelectMenu(uint32_t seed, uint8_t presetIndex, uint16_t currentFlags, int selectedIndex) {
+    (void)seed;
+    ui_DrawMenuWindow(15, 15, 290, 210);
+    gfx_SetTextFGColor(0xFF);
+    gfx_SetTextBGColor(0x00);
+    gfx_SetTextTransparentColor(0x00);
+    
+    gfx_PrintStringXY("RANDOMIZER FLAG SELECTION", 55, 25);
+    
+    // Presets Row (Index 0)
+    const char *presetNames[] = {"Standard Rando", "Speedrunner QoL", "Chaos Mode", "Vanilla DW", "Custom"};
+    gfx_PrintStringXY("< PRESET: ", 30, 45);
+    gfx_PrintString(presetNames[presetIndex > 4 ? 4 : presetIndex]);
+    gfx_PrintString(" >");
+    if (selectedIndex == 0) {
+        ui_DrawSelectionPointer(20, 45);
+    }
+
+    // Flag Checkboxes (Index 1 to 9)
+    const char *flagNames[] = {
+        "Shuffle Key Items & Quests",
+        "Shuffle Monster Encounter Zones",
+        "Scale Monster Stats (0.75x-1.25x)",
+        "Shuffle Hero Stat Growth Curves",
+        "Shuffle Town Shop Items & Prices",
+        "QoL: 2x EXP & Gold Multiplier",
+        "QoL: Instant Dialogue Text",
+        "QoL: 50% Encounter Rate",
+        "QoL: Guaranteed Flee/Run"
+    };
+
+    int y = 63;
+    for (int i = 0; i < 9; i++, y += 13) {
+        bool isChecked = (currentFlags & bit_mask[i]) != 0;
+        if (selectedIndex == i + 1) {
+            ui_DrawSelectionPointer(25, y);
+        }
+        gfx_PrintStringXY(isChecked ? "[*] " : "[ ] ", 35, y);
+        gfx_PrintString(flagNames[i]);
+    }
+
+    // Start Button (Index 10)
+    int startY = 192;
+    if (selectedIndex == 10) {
+        ui_DrawSelectionPointer(95, startY);
+    }
+    gfx_PrintStringXY("[ START GAME ]", 110, startY);
+}
+
+void ui_DrawGeneratingLoader(uint32_t seed, uint16_t flags) {
+    (void)seed;
+    (void)flags;
+    ui_DrawMenuWindow(50, 90, 220, 60);
+    gfx_SetTextFGColor(0xFF);
+    gfx_SetTextBGColor(0x00);
+    gfx_SetTextTransparentColor(0x00);
+    
+    gfx_PrintStringXY("Generating World Seed...", 70, 105);
+    gfx_PrintStringXY("Please wait...", 105, 125);
 }

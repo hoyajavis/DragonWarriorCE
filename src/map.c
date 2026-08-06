@@ -16,11 +16,11 @@ MapTransition *current_map_transitions = NULL;
 static uint8_t current_map_slot = 0;
 
 uint8_t current_map_num_interactables = 0;
-uint8_t current_map_interactables_raw[64 * 6] = {0};
+uint8_t current_map_interactables_raw[32 * 6] = {0};
 
 uint8_t current_map_global_monster_set = 255;
 uint8_t current_map_num_monster_zones = 0;
-uint8_t current_map_monster_zones[64 * 5] = {0};
+uint8_t current_map_monster_zones[16 * 5] = {0};
 
 bool map_Load(const char *appvar_name) {
     uint8_t slot;
@@ -82,20 +82,18 @@ bool map_Load(const char *appvar_name) {
     }
     
     if (raw_interactables_count > 0) {
-        for (int i = 0; i < raw_interactables_count; i++) {
-            if (current_map_num_interactables >= 64) break;
+        uint8_t *obj = ptr;
+        for (int i = 0; i < raw_interactables_count; i++, obj += 6) {
+            if (current_map_num_interactables >= 32) break;
             
-            uint8_t *obj = &ptr[i * 6];
             uint8_t objType = obj[2];
             uint16_t actionId = obj[4] | (obj[5] << 8);
             
             // Check if this object is a chest or door that has already been opened
             bool already_opened = false;
             if (objType == OBJ_CHEST || objType == OBJ_DOOR) {
-                if (actionId < 512) {
-                    if (state.event_flags[actionId / 8] & (1 << (actionId % 8))) {
-                        already_opened = true;
-                    }
+                if (actionId < 512 && check_flag(actionId)) {
+                    already_opened = true;
                 }
             }
             
@@ -115,7 +113,7 @@ bool map_Load(const char *appvar_name) {
     
     MAP_REQUIRE_BYTES(current_map_num_monster_zones * 5);
     int num_to_copy = current_map_num_monster_zones;
-    if (num_to_copy > 64) num_to_copy = 64;
+    if (num_to_copy > 16) num_to_copy = 16;
     
     memcpy(current_map_monster_zones, ptr, num_to_copy * 5);
     ptr += current_map_num_monster_zones * 5;
@@ -196,10 +194,10 @@ void map_InitLUT(void) {
 void map_Draw(uint16_t cameraX, uint16_t cameraY) {
     if (!current_map_data) return;
     
-    uint16_t startX = cameraX / TILE_SIZE;
-    uint16_t startY = cameraY / TILE_SIZE;
-    uint8_t offsetX = cameraX % TILE_SIZE;
-    uint8_t offsetY = cameraY % TILE_SIZE;
+    uint16_t startX = cameraX >> 4;
+    uint16_t startY = cameraY >> 4;
+    uint8_t offsetX = cameraX & 15;
+    uint8_t offsetY = cameraY & 15;
     
     uint8_t active_diameter = state.lightDiameter > current_map_light_diameter ? state.lightDiameter : current_map_light_diameter;
     int radius = 0;
@@ -259,9 +257,9 @@ void map_Draw(uint16_t cameraX, uint16_t cameraY) {
             }
             
             tilePtr++;
-            drawX += TILE_SIZE;
+            drawX += 16;
         }
-        drawY += TILE_SIZE;
+        drawY += 16;
         rowPtr += current_map_width;
     }
 
@@ -275,14 +273,43 @@ void map_Draw(uint16_t cameraX, uint16_t cameraY) {
         // Cull to visible viewport
         if (objX < startX || objX >= (startX + 21)) continue;
         if (objY < startY || objY >= (startY + 16)) continue;
-        if (objType < 14 || objType >= 23) continue;
+        if (objType == OBJ_NONE || objType >= 23) continue;
 
         gfx_sprite_t *spr = obj_lut[objType];
         if (!spr) continue;
 
-        int screenX = ((int)objX - (int)startX) * TILE_SIZE - offsetX;
-        int screenY = ((int)objY - (int)startY) * TILE_SIZE - offsetY;
+        int screenX = (((int)objX - (int)startX) << 4) - offsetX;
+        int screenY = (((int)objY - (int)startY) << 4) - offsetY;
 
-        gfx_Sprite(spr, screenX, screenY);
+        if (screenX >= 0 && screenX <= 304 && screenY >= 0 && screenY <= 224) {
+            gfx_Sprite_NoClip(spr, screenX, screenY);
+        } else {
+            gfx_Sprite(spr, screenX, screenY);
+        }
     }
+}
+
+bool isPassable(uint16_t px, uint16_t py) {
+    uint16_t tx = px >> 4;
+    uint16_t ty = py >> 4;
+    if (tx >= current_map_width || ty >= current_map_height) return false;
+    
+    // Check objects first
+    uint8_t *obj = current_map_interactables_raw;
+    for (uint8_t i = 0; i < current_map_num_interactables; i++, obj += 6) {
+        uint16_t objX = obj[0];
+        uint16_t objY = obj[1];
+        if (objX == tx && objY == ty) {
+            uint8_t objType = obj[2];
+            // Can't walk on NPCs, Chests, or Doors
+            if ((objType >= OBJ_NPC_KING && objType <= OBJ_NPC_TRUMPETER) || 
+                objType == OBJ_CHEST || 
+                objType == OBJ_DOOR) {
+                return false;
+            }
+        }
+    }
+    
+    uint8_t tile = current_map_data[ty * current_map_width + tx];
+    return (tile != TILE_WATER && tile != TILE_MOUNTAIN && tile != TILE_STONE && tile != TILE_COUNTER && tile != TILE_ROOF && tile != TILE_INN && tile != TILE_ARMOR && tile != TILE_DARKNESS);
 }
