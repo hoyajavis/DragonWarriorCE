@@ -77,4 +77,6 @@ extern const uint8_t monsterSets[20][10];
 #define MONSTER_DRAGONLORD 39
 #define MONSTER_DRAGONLORDS_TRUE_FORM 40
 
+gfx_sprite_t *get_monster_sprite(uint8_t monster_id);
+
 #endif // MONSTER_DATA_H

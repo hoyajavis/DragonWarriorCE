@@ -8,6 +8,7 @@
 #include <graphx.h>
 #include <keypadc.h>
 #include <fileioc.h>
+#include <compression.h>
 
 #include "gfx/gfx.h"
 #include "game.h"
@@ -22,10 +23,25 @@
 // Define primary game state
 GameState state;
 
+static void *gfx_data = NULL;
+
 int main(void) {
-    if (PYDWGFX_init(NULL) == 0) {
+    ti_var_t gfx_slot = ti_Open("PYDWGFX", "r");
+    if (!gfx_slot) {
         return 1;
     }
+
+    gfx_data = malloc(PYDWGFX_appvar_uncompressed_size);
+    if (!gfx_data) {
+        ti_Close(gfx_slot);
+        return 1;
+    }
+
+    zx7_Decompress(gfx_data, ti_GetDataPtr(gfx_slot));
+    ti_Close(gfx_slot);
+
+    PYDWGFX_init(gfx_data);
+
     gfx_Begin();
     gfx_SetDrawBuffer(); 
     gfx_SetPalette(global_palette, sizeof_global_palette, 0);
@@ -73,5 +89,8 @@ int main(void) {
     }
 
     gfx_End();
+    if (gfx_data) {
+        free(gfx_data);
+    }
     return 0;
 }

@@ -329,7 +329,7 @@ void updateCombat(void) {
 
 void renderCombat(void) {
     gfx_ZeroScreen();
-    gfx_sprite_t *monSpr = get_monster_sprite(state.currentMonster);
+    gfx_sprite_t *monSpr = (gfx_sprite_t*)monsterTable[state.currentMonster].sprite;
     if (monSpr) {
         gfx_TransparentSprite_NoClip(monSpr, 130, 40);
     }
